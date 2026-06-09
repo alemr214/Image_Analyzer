@@ -2,7 +2,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 from PIL import Image as IMG
 
-from model.image import Image
+try:
+    from model.image import Image
+except ModuleNotFoundError:
+    from src.model.image import Image
 
 
 def convert_image_array(img: Image) -> np.ndarray:
@@ -30,7 +33,4 @@ def rotate_image(img_array: np.ndarray) -> np.ndarray:
 
 
 def print_save_image(img_name: str, img_array: np.ndarray) -> None:
-    if img_array.ndim == 2:
-        plt.imsave(img_name, img_array, cmap="gray")
-    else:
-        plt.imsave(img_name, img_array)
+    plt.imsave(img_name, img_array)
