@@ -1,59 +1,75 @@
 # Image Analyzer
 
-Un analizador de imágenes en Python que permite cargar una imagen, ver sus propiedades básicas y aplicar operaciones simples como extraer canales de color, rotar y reducir el tamaño.
+An image analyzer on Python that allows loading an image, viewing its details, and applying basic operations such as extracting color channels, applying rotation, and shrinking it.
 
-## Descripción
+## Notebook
 
-Este proyecto ofrece una interfaz gráfica sencilla basada en `tkinter` para:
+A Jupyter notebook explaining how the image methods work and viewing some examples with images saved in the images directory on this repository.
 
-- seleccionar una imagen (`.png`, `.jpg`, `.jpeg`)
-- mostrar ancho, alto y número de canales
-- guardar el canal rojo, verde o azul como nueva imagen
-- guardar una versión rotada en 90 grados
-- guardar una versión reducida mediante muestreo cada `n` pixeles
+[![Abrir notebook](https://img.shields.io/badge/Abrir%20notebook-Notebook-blue)](notebooks/Image_Analyzer.ipynb)
 
-Las operaciones de imagen se realizan con `numpy`, `matplotlib` y `Pillow`.
+## Description
 
-## Requisitos
+This repository offers a graphic interface based on Tkinter for:
 
-- Python 3.11 o superior
-- Terminal / consola con acceso al directorio del proyecto
+- Select an image file (`.png`, `.jpg`, `.jpeg`)
+- Shows its weight, height, and number of color channels.
+- Save every extracted channel image.
+- Save a rotated image 90°.
+- Save a shrunk version applying a `N` pixel value.
 
-Dependencias principales:
+## Requirements
 
-- numpy
-- matplotlib
-- pillow
-- tkinter (incluido con Python en la mayoría de distribuciones)
+- Python 3.11 or greater.
+- Terminal
 
-Para instalar todas las dependencias, ejecuta:
+Dependencies:
+
+- Numpy
+- Matplotlib
+- Tkinter
+- Pillow
+
+To install, execute:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Uso
+## Use
 
-Para ejecutar la aplicación:
+To run the application execute on console:
 
 ```bash
 python src/main.py
 ```
 
-### Pasos
+Or make an executable:
 
-1. Haz clic en `Seleccionar imagen`.
-2. Escoge un archivo de imagen válido.
-3. Observa la ruta y las propiedades de la imagen (ancho, alto, canales).
-4. Usa los botones disponibles para:
-   - extraer el canal rojo, verde o azul
-   - rotar la imagen 90°
-   - reducir la imagen ingresando un valor en `Veces a reducir`
-5. Las imágenes resultantes se guardan en el mismo directorio con sufijos como `_rojo.png`, `_verde.png`, `_azul.png`, `_rotada.png` y `_reducida.png`.
+```bash
+pyinstaller --onefile --windowed --name ImageAnalyzer src/main.py
+```
 
-## Estructura del proyecto
+### Steps
 
-- `src/main.py`: punto de entrada principal de la aplicación.
-- `src/ui/window.py`: interfaz gráfica y lógica de los botones.
-- `src/model/image.py`: clase que representa metadatos de la imagen.
-- `src/utils/image_utils.py`: funciones para convertir, rotar, reducir y extraer canales.
+1. Click on `Select image`.
+2. Choose a valid file.
+3. View the properties of the image (weight, height, color channels)
+4. Use the buttons to:
+   - Extract the color channels.
+   - Rotate the image.
+   - Shrink the image.
+5. The new images will be saved in the same directory as `_red.png`, `_green.png`, `_blue.png`, `_rotated.png` and `_shrunk.png`.
+
+## App structure
+
+```text
+src/
+├─ model/
+│  └─ image.py          # Image class with private properties and methods
+├─ ui/
+│  └─ window.py         # Graphic interface and interactive logic.
+├─ utils/
+│  └─ image_utils.py    # Functions to apply on images.
+└─ main.py              # Main file to execute.
+```
