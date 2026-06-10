@@ -30,28 +30,28 @@ image_base = Image()
 
 def build_app() -> tk.Tk:
     root = tk.Tk()
-    root.title("Analizador de Imágenes")
+    root.title("Image analyzer")
 
     frame = tk.Frame(root)
     frame.pack(padx=50, pady=30)
 
-    label_route = tk.Label(frame, text="Ninguna imagen seleccionada")
+    label_route = tk.Label(frame, text="No image selected")
     label_info = tk.Label(frame, text="")
 
     def update_route_label() -> None:
         if image_base.route:
-            label_route.config(text=f"Ruta: {image_base.route}")
+            label_route.config(text=f"Path: {image_base.route}")
         else:
-            label_route.config(text="Ninguna imagen seleccionada")
+            label_route.config(text="No image selected")
         update_image_info()
 
     def update_image_info() -> None:
         if image_base.route:
             label_info.config(
                 text=(
-                    f"Ancho: {image_base.weight} px  "
-                    f"Alto: {image_base.height} px  "
-                    f"Canales: {image_base.channels}"
+                    f"Weight: {image_base.weight} px  "
+                    f"Height: {image_base.height} px  "
+                    f"Channels: {image_base.channels}"
                 )
             )
             label_info.pack(pady=5)
@@ -70,7 +70,7 @@ def build_app() -> tk.Tk:
 
     def ensure_image_loaded() -> bool:
         if not image_base.route:
-            messagebox.showwarning("Atención", "Debes seleccionar una imagen primero.")
+            messagebox.showwarning("Attention", "You need to select an image first.")
             return False
         return True
 
@@ -79,15 +79,15 @@ def build_app() -> tk.Tk:
         output_name = image_path.with_name(f"{image_path.stem}_{suffix}.png")
         print_save_image(str(output_name), result_array)
         messagebox.showinfo(
-            "Imagen guardada", f"Se guardó la imagen: {output_name.name}"
+            "Image saved", f"It's saved the image: {output_name.name}"
         )
 
     def select_image() -> None:
         system_route = filedialog.askopenfilename(
-            title="Selecciona una imagen",
+            title="Select an image",
             filetypes=[
-                ("Imágenes", "*.png *.jpg *.jpeg"),
-                ("Todos los archivos", "*.*"),
+                ("Images", "*.png *.jpg *.jpeg"),
+                ("All files", "*.*"),
             ],
         )
         if not system_route:
@@ -101,28 +101,28 @@ def build_app() -> tk.Tk:
             return
         img_array = load_image_data()
         if img_array is not None:
-            save_and_notify(extract_red_channel(img_array), "rojo")
+            save_and_notify(extract_red_channel(img_array), "red")
 
     def apply_green_filter() -> None:
         if not ensure_image_loaded():
             return
         img_array = load_image_data()
         if img_array is not None:
-            save_and_notify(extract_green_channel(img_array), "verde")
+            save_and_notify(extract_green_channel(img_array), "green")
 
     def apply_blue_filter() -> None:
         if not ensure_image_loaded():
             return
         img_array = load_image_data()
         if img_array is not None:
-            save_and_notify(extract_blue_channel(img_array), "azul")
+            save_and_notify(extract_blue_channel(img_array), "blue")
 
     def apply_rotate_image() -> None:
         if not ensure_image_loaded():
             return
         img_array = load_image_data()
         if img_array is not None:
-            save_and_notify(rotate_image(img_array), "rotada")
+            save_and_notify(rotate_image(img_array), "rotated")
 
     def apply_shrink_image() -> None:
         if not ensure_image_loaded():
@@ -130,27 +130,27 @@ def build_app() -> tk.Tk:
         img_array = load_image_data()
         if img_array is not None:
             save_and_notify(
-                shrink_image(img_array, int(input_shrink.get())), "reducida"
+                shrink_image(img_array, int(input_shrink.get())), "shrunk"
             )
 
-    btn_select_image = tk.Button(frame, text="Seleccionar imagen", command=select_image)
+    btn_select_image = tk.Button(frame, text="Select image", command=select_image)
     btn_red_filter = tk.Button(
-        frame, text="Extraer canal rojo", command=apply_red_filter
+        frame, text="Extract the red channel", command=apply_red_filter
     )
     btn_green_filter = tk.Button(
-        frame, text="Extraer canal verde", command=apply_green_filter
+        frame, text="Extract the green channel", command=apply_green_filter
     )
     btn_blue_filter = tk.Button(
-        frame, text="Extraer canal azul", command=apply_blue_filter
+        frame, text="Extract the blue channel", command=apply_blue_filter
     )
     btn_rotate_image = tk.Button(
-        frame, text="Rota la imagen 90°", command=apply_rotate_image
+        frame, text="Rotate 90°", command=apply_rotate_image
     )
     btn_shrink_image = tk.Button(
-        frame, text="Reduce la imagen", command=apply_shrink_image
+        frame, text="Shrink image", command=apply_shrink_image
     )
     shrink_frame = tk.Frame(frame)
-    shrink_label = tk.Label(shrink_frame, text="Veces a reducir: ")
+    shrink_label = tk.Label(shrink_frame, text="Times to shrink: ")
     input_shrink = tk.Spinbox(shrink_frame, width=10, from_=0, to=100)
 
     btn_select_image.pack(pady=5)
